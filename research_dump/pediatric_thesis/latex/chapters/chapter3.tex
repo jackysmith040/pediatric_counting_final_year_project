@@ -1,0 +1,39 @@
+\chapter{Mathematical Preliminaries}
+
+\section{Object Detection \& Instance Segmentation}
+The detection process is modeled as an optimization problem where we minimize a composite loss function $\mathcal{L}$ comprising box regression, class probability, and mask accuracy. Given an image $I$, the model outputs:
+\begin{equation}
+    O = \{ (b_i, p_i, m_i) \}_{i=1}^k
+\end{equation}
+Where $b_i$ is the bounding box, $p_i$ is the confidence score, and $m_i$ is the pixel-level mask.
+
+\section{Allometric Scaling: The Biological Anchor}
+To distinguish between infants, adolescents, and adults, we utilize the scale-invariant Allometric Ratio $R$:
+\begin{equation}
+    R = \frac{H_{total}}{H_{head}}
+\end{equation}
+Where $R \approx 4.0 - 6.0$ for infants and $R \approx 7.5 - 8.0$ for adults \parencite{mlinaric2024}.
+
+\section{Kalman Filtering for ID Persistence}
+To ensure unique patient counting and handle temporal occlusion, we utilize a linear Kalman Filter to predict the kinematic state $x_k$ of a pediatric centroid $(x, y)$. 
+
+The filter operates in two phases:
+\begin{enumerate}
+    \item \textbf{Prediction Phase:}
+    \begin{itemize}
+        \item State Prediction: $\hat{x}_k^- = F\hat{x}_{k-1} + Bu_k$
+        \item Covariance Prediction: $P_k^- = FP_{k-1}F^T + Q$
+    \end{itemize}
+    \item \textbf{Correction Phase:}
+    \begin{itemize}
+        \item Kalman Gain: $K_k = P_k^-H^T(HP_k^-H^T + R)^{-1}$
+        \item State Update: $\hat{x}_k = \hat{x}_k^- + K_k(z_k - H\hat{x}_k^-)$
+    \end{itemize}
+\end{enumerate}
+Where $F$ is the transition matrix and $z_k$ is the measurement vector (detected centroid).
+
+\section{Performance Metric: MAPE}
+The system error is quantified using the Mean Absolute Percentage Error:
+\begin{equation}
+    MAPE = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{Actual_i - Predicted_i}{Actual_i} \right| \times 100
+\end{equation}

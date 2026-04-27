@@ -1,28 +1,29 @@
 \section{Methodology}
 
-\begin{frame}{Methodology I: Detection Architecture}
-    We utilize the \textbf{YOLOv11} small architecture fine-tuned on specialized pediatric data.
+\begin{frame}{Methodology I: Implementation Stack}
+    We utilize a modular pipeline optimized for clinical edge deployment:
     \begin{itemize}
-        \item \textbf{Object Detection:} Rapid extraction of human bounding box coordinates.
-        \item \textbf{Geometric Baseline:} Establishing the dimensionless Head-to-Body ratio ($R$).
+        \item \textbf{Detection:} \textbf{YOLOv11-seg} for pixel-level precision masks.
+        \item \textbf{Validation:} \textbf{Ada-Haar Booster} to verify pediatric head signatures.
+        \item \textbf{Tracking:} \textbf{DeepSORT} for ID persistence across occlusions.
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Methodology II: Allometric Logic}
+    To solve the ``Invisible Child'' dyad, we evaluate spatial invariants:
+    \begin{itemize}
+        \item \textbf{Ratio Calculation:} $R = H_{total} / H_{head} \approx 4.0 - 6.0$.
+        \item \textbf{Vertical Displacement:} $y_{h2} < y_{h1}$ (Child on back).
+        \item \textbf{Area Proportion:} $A_{h2} < A_{h1}$ (Pediatric scale check).
+    \end{itemize}
+    \centering
+    \includegraphics[width=5cm]{../research_papers/extracted_images/fig-010.jpg}
+\end{frame}
+
+\begin{frame}{Methodology III: Kalman Filtering}
+    To maintain patient IDs during high-density overlaps, we utilize linear state prediction:
     \begin{equation}
-        R = \frac{H_{total}}{H_{head}}
+        \hat{x}_k^- = F\hat{x}_{k-1} + Bu_k
     \end{equation}
-\end{frame}
-
-\begin{frame}{Methodology II: Allometric Post-Processing}
-    To solve the ``Invisible Child'' dyad, we evaluate spatial invariants within detected bounding boxes:
-    \begin{itemize}
-        \item \textbf{Vertical Displacement:} $y_{h2} < y_{h1}$ (Infers a child carried on the back).
-        \item \textbf{Area Proportion:} $A_{h2} < A_{h1}$ (Confirms the secondary entity as pediatric).
-    \end{itemize}
-    \centering
-    \includegraphics[width=6cm]{../research_papers/extracted_images/fig-010.jpg}
-\end{frame}
-
-\begin{frame}{Methodology III: Dataset & Verification}
-    The framework is calibrated using the \textbf{Child Detection Dataset (CDD)} \parencite{diop2025}.
-    \centering
-    \includegraphics[width=8cm]{../research_papers/extracted_images/fig-008.jpg}
+    This ensures that a mother and child detected as a single cluster are mathematically tracked as independent biological entities.
 \end{frame}
