@@ -9,21 +9,30 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Methodology II: Allometric Logic}
-    To solve the ``Invisible Child'' dyad, we evaluate spatial invariants:
-    \begin{itemize}
-        \item \textbf{Ratio Calculation:} $R = H_{total} / H_{head} \approx 4.0 - 6.0$.
-        \item \textbf{Vertical Displacement:} $y_{h2} < y_{h1}$ (Child on back).
-        \item \textbf{Area Proportion:} $A_{h2} < A_{h1}$ (Pediatric scale check).
-    \end{itemize}
-    \centering
-    \includegraphics[width=5cm]{../research_papers/extracted_images/fig-010.jpg}
+\begin{frame}{Methodology II: Allometric \& Spatial Modeling}
+    We model the pediatric census using biological and geometric invariants:
+    \begin{block}{Allometric Ratio ($R$)}
+        \begin{equation}
+            R = \frac{H_{total}}{H_{head}} \in [4.0, 6.0] \implies \text{Pediatric}
+        \end{equation}
+    \end{block}
+    \begin{block}{Spatial Occlusion Logic}
+        \begin{equation}
+            \text{IF } y_{h2} < y_{h1} \text{ AND } A_{h2} < A_{h1} \implies \text{Count} + 1
+        \end{equation}
+    \end{block}
 \end{frame}
 
-\begin{frame}{Methodology III: Kalman Filtering}
-    To maintain patient IDs during high-density overlaps, we utilize linear state prediction:
-    \begin{equation}
-        \hat{x}_k^- = F\hat{x}_{k-1} + Bu_k
-    \end{equation}
-    This ensures that a mother and child detected as a single cluster are mathematically tracked as independent biological entities.
+\begin{frame}{Methodology III: Kalman Filter Modeling}
+    To handle temporal occlusion, we utilize a linear state prediction-correction loop:
+    \begin{block}{1. Prediction (Kinematics)}
+        \begin{equation}
+            \hat{x}_k^- = F\hat{x}_{k-1} + Bu_k \quad ; \quad P_k^- = FP_{k-1}F^T + Q
+        \end{equation}
+    \end{block}
+    \begin{block}{2. Correction (Update)}
+        \begin{equation}
+            \hat{x}_k = \hat{x}_k^- + K_k(z_k - H\hat{x}_k^-)
+        \end{equation}
+    \end{block}
 \end{frame}
