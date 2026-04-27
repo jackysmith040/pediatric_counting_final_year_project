@@ -1,0 +1,29 @@
+# LaTeX
+*.aux
+*.log
+*.toc
+*.nav
+*.snm
+*.out
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.bbl
+*.blg
+*.run.xml
+*.bcf
+
+# System / IDE
+.DS_Store
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+
+# Local Data (Safe to ignore if we want clean repo)
+neurowiki/graph/brain_data.js
+research_dump/quarkdown/
+
+# Node (just in case)
+node_modules/
+package-lock.json

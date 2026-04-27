@@ -1,0 +1,40 @@
+\documentclass[12pt, a4paper, oneside]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[backend=biber, style=apa]{biblatex}
+\addbibresource{references.bib}
+
+\title{Pediatric Patient Counting with Interactive Object Detection: A Mathematical Framework for Occlusion-Resistant Computer Vision}
+\author{Peter Amoah Mensah \& Fafali Dorkunor}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\chapter{Introduction}
+\input{chapters/ch1_introduction.tex}
+
+\chapter{Literature Review}
+\input{chapters/ch2_lit_review.tex}
+
+\chapter{Mathematical Preliminaries}
+\input{chapters/ch3_math_preliminaries.tex}
+
+\chapter{Methodology}
+\input{chapters/ch4_methodology.tex}
+
+\chapter{Results \& Discussion}
+\input{chapters/ch5_results.tex}
+
+\chapter{Conclusion}
+\input{chapters/ch6_conclusion.tex}
+
+\printbibliography
+
+\end{document}

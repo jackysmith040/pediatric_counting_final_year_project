@@ -1,0 +1,37 @@
+\section{Object Detection \& Instance Segmentation}
+The foundation of the counting framework lies in the ability to segment overlapping entities at the pixel level. We utilize the YOLOv8-seg architecture, which defines a person segment $S$ as a set of pixels $P_i$:
+
+\begin{equation}
+    S = \{ P_1, P_2, \dots, P_n \}
+\end{equation}
+
+\section{Euclidean Proximity \& Spatial Merging}
+In the ``Invisible Child'' scenario, we define two detected head centroids $C_1(x_1, y_1)$ and $C_2(x_2, y_2)$. The spatial merge is determined by the Euclidean distance $d$:
+
+\begin{equation}
+    d(C_1, C_2) = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
+\end{equation}
+
+If $d < \tau$ (where $\tau$ is the proximity threshold), the system identifies a candidate mother-child cluster.
+
+\section{Allometric Scaling Laws}
+The core verification of pediatric status is governed by the scaling ratio $R$:
+
+\begin{equation}
+    R = \frac{H_{total}}{H_{head}}
+\end{equation}
+
+We model $R$ as a function of biological stage, where:
+\begin{itemize}
+    \item $\mathbb{E}[R_{infant}] \in [4.0, 5.5]$
+    \item $\mathbb{E}[R_{adult}] \in [7.5, 8.5]$
+\end{itemize}
+
+\section{AdaBoost Feature Selection}
+To boost head detection, we employ the AdaBoost algorithm to select a subset of $T$ features $\{ f_t \}$ that minimize the classification error $\epsilon$:
+
+\begin{equation}
+    H(x) = \text{sign} \left( \sum_{t=1}^T \alpha_t h_t(x) \right)
+\end{equation}
+
+Where $h_t(x)$ are the weak Haar-like classifiers.

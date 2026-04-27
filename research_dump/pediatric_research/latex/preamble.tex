@@ -1,0 +1,29 @@
+\usepackage{fontspec}
+\usepackage[english]{babel}
+
+% Set default/Latin font to Sans Serif in the main (rm) and sans (sf) slots for Beamer
+\babelfont{rm}{Noto Sans}
+\babelfont{sf}{Noto Sans}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+% --- KNUST THEME CONFIGURATION ---
+\usetheme{Madrid}
+% Define KNUST Official Colors
+\definecolor{knustgreen}{RGB}{0, 107, 63}
+\definecolor{knustgold}{RGB}{253, 200, 47}
+
+\usecolortheme[named=knustgreen]{structure}
+\setbeamercolor{title}{bg=knustgreen, fg=white}
+\setbeamercolor{frametitle}{bg=knustgreen, fg=white}
+\setbeamercolor{block title}{bg=knustgreen, fg=white}
+\setbeamercolor{block body}{bg=knustgreen!10, fg=black}
+\setbeamercolor{item}{fg=knustgold!80!black}
+
+% Remove navigation symbols for a cleaner look
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{references.bib}

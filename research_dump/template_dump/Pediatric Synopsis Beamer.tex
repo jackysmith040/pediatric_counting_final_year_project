@@ -1,0 +1,227 @@
+
+\documentclass[11pt, aspectratio=169]{beamer}
+
+% --- UNIVERSAL PREAMBLE BLOCK ---
+\usepackage{fontspec}
+\usepackage[english]{babel}
+
+% Set default/Latin font to Sans Serif in the main (rm) and sans (sf) slots for Beamer
+\babelfont{rm}{Noto Sans}
+\babelfont{sf}{Noto Sans}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+
+% --- KNUST THEME CONFIGURATION ---
+\usetheme{Madrid}
+% Define KNUST Official Colors
+\definecolor{knustgreen}{RGB}{0, 107, 63}
+\definecolor{knustgold}{RGB}{253, 200, 47}
+
+\usecolortheme[named=knustgreen]{structure}
+\setbeamercolor{title}{bg=knustgreen, fg=white}
+\setbeamercolor{frametitle}{bg=knustgreen, fg=white}
+\setbeamercolor{block title}{bg=knustgreen, fg=white}
+\setbeamercolor{block body}{bg=knustgreen!10, fg=black}
+\setbeamercolor{item}{fg=knustgold!80!black}
+
+% Remove navigation symbols for a cleaner look
+\setbeamertemplate{navigation symbols}{}
+
+% --- TITLE PAGE METADATA ---
+\title[Pediatric Patient Counting]{Pediatric Patient Counting with Interactive Object Detection}
+\subtitle{A Mathematical Framework for Occlusion-Resistant Computer Vision}
+\author[Peter \& Fafali]{Peter Amoah Mensah (Index: 3457122) \and Fafali Dorkunor (Index: 3455022)}
+\institute[KNUST]{
+    Department of Mathematics \\
+    Kwame Nkrumah University of Science and Technology
+}
+\date{February 20, 2026}
+
+\begin{document}
+
+% --- TITLE SLIDE ---
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% --- OUTLINE ---
+\begin{frame}{Outline of Presentation}
+    \tableofcontents
+\end{frame}
+
+% --- BACKGROUND ---
+\section{Background of the Study}
+\begin{frame}{Background of the Study}
+    \begin{block}{The "Invisible Child" Phenomenon}
+        In major Ghanaian hospitals like Komfo Anokye Teaching Hospital (KATH), optimizing medical staff allocation requires precise demographic data, which is currently lacking.
+    \end{block}
+    
+    \vspace{0.2cm}
+    \begin{itemize}
+        \item \textbf{Systemic Blindness:} Electronic health records (e.g., LHIMS) only capture the primary patient, leaving accompanying family members statistically invisible (Addotey-Delove et al., 2023).
+        \item \textbf{Cultural Variable:} In Ghana, infants are typically carried on their mothers' backs while navigating crowded Outpatient Departments (OPDs).
+        \item \textbf{The Data Deficit:} This undocumented influx skews hospital statistics, exacerbating OPD wait times (averaging 2--4 hours) and causing dangerous delays in triage (Osei et al., 2024).
+    \end{itemize}
+\end{frame}
+
+% --- PROBLEM STATEMENT ---
+\section{Problem Statement}
+\begin{frame}{Problem Statement}
+    \begin{block}{The Core Problem: Manual Counting}
+        Hospitals currently rely on manual tallying for pediatric patients. This method is highly susceptible to human error and lacks the real-time statistical reliability needed for dynamic hospital operations. The natural mathematical solution is automated Computer Vision.
+    \end{block}
+    
+    \vspace{0.3cm}
+    \begin{block}{The Computational Bottleneck: The Occlusion Problem}
+        However, introducing standard creates a severe geometric flaw (Ouyang \& Wang, 2015). Because infants are carried on the back, their spatial coordinates heavily intersect with the mother's. 
+        
+        \vspace{0.2cm}
+        Standard algorithms merge these overlapping shapes, actively discarding the infant as visual noise and leaving the hospital mathematically blind to its true pediatric load.
+    \end{block}
+\end{frame}
+
+% --- OBJECTIVES ---
+\section{Objectives}
+\begin{frame}{Objectives of the Study}
+    \textbf{General Objective:} Develop an automated mathematical framework to accurately count pediatric visitors, specifically designed to detect infants whose spatial features are occluded (hidden) by caregivers.
+    
+    \vspace{0.4cm}
+    \textbf{Specific Objectives:}
+    \begin{enumerate}
+        \item Formulate a spatial detection model to mathematically separate carried children from adult caregivers.
+        \item Apply anthropometric constraints (Head-to-Body Ratios) to prevent false positives, such as misclassifying short adults.
+        \item Implement geometric centroid tracking to ensure unique, non-repeating patient counts across temporal frames.
+        \item Design a localized computing architecture that outputs strictly numerical matrices, guaranteeing patient privacy.
+    \end{enumerate}
+\end{frame}
+
+% --- METHODOLOGY 1 ---
+\section{Methodology}
+\begin{frame}{Methodology I: Proposed Data Acquisition \& Privacy}
+    \begin{block}{Live Surveillance Integration}
+        We propose utilizing continuous video feeds captured from standard OPD surveillance cameras to monitor incoming patient traffic geometrically.
+    \end{block}
+    
+    \vspace{0.2cm}
+    \begin{block}{Secure Local Processing}
+        \begin{itemize}
+            \item \textbf{Edge Computing:} The video feed will be processed instantly using low-cost, on-site hardware.
+            \item \textbf{Strict Privacy Protocol:} To guarantee patient confidentiality, mathematical analysis will occur entirely in volatile memory (RAM). \textbf{No video or images will ever be stored}.
+            \item \textbf{Data Output:} The system will only transmit an anonymized JSON numerical array containing the recovered blindspot data:
+        \end{itemize}
+        \vspace{0.2cm}
+        \centering \small \texttt{\{ "timestamp": "10:14:02", "adults": 12, "children": 5, "occluded\_infants": 2 \}}
+    \end{block}
+\end{frame}
+
+% --- METHODOLOGY 2 ---
+\begin{frame}{Methodology II: Mathematical Anthropometry}
+    To classify a person's age regardless of their distance from the camera lens, we will utilize \textbf{Allometric Scaling} (Mlinarić et al., 2024).
+
+    \begin{block}{The Dimensionless Head-to-Body Ratio ($R$)}
+        For any detected subject, we will calculate a scale-invariant ratio $R$:
+        \begin {equation}R = \frac{H_{\text{total}}}{H_{\text{head}}}\end {equation}
+        where $H_{\text{total}}$ is the subject's total bounding height and $H_{\text{head}}$ is their isolated head height.
+    \end{block}
+
+    \vspace{0.2cm}
+    \begin{itemize}
+        \item \textbf{Adults:} $R \approx 7.5 - 8.0$ \hspace{1cm} \textbf{Infants/Toddlers:} $R \approx 4.0 - 6.0$
+        \item \textbf{Mathematical Advantage:} This ratio will physically prevent a short adult from being statistically misclassified as a child.
+    \end{itemize}
+\end{frame}
+
+% --- METHODOLOGY 3 ---
+\begin{frame}{Methodology III: Spatial Inference for Occlusion}
+    To solve the occlusion problem, we plan to implement a multi-part spatial evaluation.
+
+    \vspace{0.2cm}
+    \begin{enumerate}
+        \item \textbf{Independent Detection:} The proposed algorithm will isolate all human Heads ($H$) and Bodies ($B$) independently, rather than looking for full figures.
+        \item \textbf{Geometric Evaluation:} If one body shape bounds two distinct heads ($h_1, h_2 \in H$), we will evaluate two spatial parameters:
+        \begin{itemize}
+            \item \textbf{Vertical Displacement:} $y_{h2} < y_{h1}$ (The second head is physically lower).
+            \item \textbf{Area Proportion:} $A_{h2} < A_{h1}$ (The second head's area is strictly smaller).
+        \end{itemize}
+        \item \textbf{Algorithmic Override:} If both conditions hold true, the system will correctly infer a carried child, bypass the standard camera failure, and update the pediatric matrix by $+1$.
+    \end{enumerate}
+\end{frame}
+
+% --- METHODOLOGY 4 ---
+\begin{frame}{Methodology IV: Geometric Tracking}
+    To prevent double-counting when a child runs out of the camera's view and quickly returns, we will track their spatial kinematics.
+
+    \begin{block}{Euclidean Distance Minimization}
+        In every video frame $t$, the algorithm will find the center coordinate $C_t = (x_t, y_t)$ of the child. We will link the child across frames by minimizing the distance $d$:
+        \begin {equation}d = \sqrt{(x_{t+1} - x_t)^2 + (y_{t+1} - y_t)^2}\end {equation}
+    \end{block}
+
+    \vspace{0.2cm}
+    \begin{itemize}
+        \item \textbf{Memory Reassignment:} If a child leaves the frame, the system will temporarily cache their geometric footprint. If a matching footprint reappears at that boundary, the ID will be restored to prevent a false count.
+    \end{itemize}
+\end{frame}
+
+% --- ANALYSIS AND RESULTS ---
+\section{Analysis and Results}
+\begin{frame}{Analysis and Expected Results}
+    \begin{block}{Real-Time Demographic Dashboard}
+        The proposed computational pipeline will securely output aggregate demographic data, rendering previously "invisible" visitors into actionable statistical metrics.
+    \end{block}
+    
+    \vspace{0.2cm}
+    \begin{itemize}
+        \item \textbf{Operational Trigger:} If the mathematical pediatric density exceeds a set capacity threshold (e.g., $>30\%$ occupancy), the system will alert staff to open dedicated triage rooms.
+        \item \textbf{Accuracy Calibration:} The system's precision will be mapped against physical manual counts, evaluated via the Mean Absolute Percentage Error (MAPE):
+        \begin {equation} MAPE = \frac{1}{n}\sum_{i=1}^{n}\left|\frac{\text{Actual}_i - \text{Predicted}_i}{\text{Actual}_i}\right| \times 100 \end {equation}
+    \end{itemize}
+\end{frame}
+
+% --- CONCLUSION ---
+\section{Conclusion}
+\begin{frame}{Conclusion}
+    \begin{block}{Conclusion}
+        This proposed framework aims to successfully bridge the gap between hospital records and physical reality. By applying proportional mathematics and spatial tracking, we expect to successfully correct standard computer vision occlusion failures, capturing highly accurate data without sacrificing privacy.
+    \end{block}
+\end{frame}
+
+% --- FAQ ---
+\section{FAQ}
+\begin{frame}{Frequently Asked Questions}
+    \textbf{Q: What if a short adult is counted as a child?} \\
+    \textit{A: The biological Head-to-Body Ratio ($R \approx 8.0$) acts as a mathematical constant, overriding absolute height to correctly classify adults.}
+    
+    \vspace{0.4cm}
+    \textbf{Q: Is patient privacy genuinely guaranteed?} \\
+    \textit{A: Yes. Processing will occur strictly in temporary memory. Only numerical matrices will be generated. No frames will ever be saved.}
+    
+    \vspace{0.4cm}
+    \textbf{Q: How do you handle children who wander off and return?} \\
+    \textit{A: We will utilize geometric center-point tracking. The system will cache the exact boundary coordinates of a departing child to prevent double counting upon re-entry.}
+\end{frame}
+
+% --- REFERENCES ---
+\section{Selected References}
+\begin{frame}{Selected References}
+    \begin{thebibliography}{9}
+        \setbeamertemplate{bibliography item}{}
+        
+        \bibitem{addotey2023} Addotey-Delove, M. N., et al. (2023). \textit{Adoption of health information systems in emerging economies: Evidence from Ghana}. Global Health Informatics.
+        
+        \bibitem{osei2024} Osei, E., et al. (2024). \textit{Patient satisfaction with quality of care at out-patient departments in selected health facilities in Kumasi, Ghana}. SpringerMedizin.
+        
+        \bibitem{ouyang2015} Ouyang, W., \& Wang, X. (2015). \textit{Partial Occlusion Handling in Pedestrian Detection with a Deep Model}. IEEE Transactions on Circuits and Systems for Video Technology.
+        
+        \bibitem{mlinaric2024} Mlinarić, T. J., et al. (2024). \textit{Research on Children's Body Proportions: Determining the Canon of Head Length to Total Body Height}. Applied Sciences, 14(16), 7185.
+        
+    \end{thebibliography}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        \Huge \textbf{Thank You}
+    \end{center}
+\end{frame}
+
+\end{document}
