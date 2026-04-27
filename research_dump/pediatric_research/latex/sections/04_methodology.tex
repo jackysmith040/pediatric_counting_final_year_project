@@ -1,33 +1,28 @@
 \section{Methodology}
 
-\begin{frame}{Proposed Pipeline}
-    The proposed system follows a 4-stage pipeline:
-    \begin{center}
-        \textbf{Detection $\to$ Segmentation $\to$ Tracking $\to$ Classification}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Object Detection \& Segmentation}
+\begin{frame}{Methodology I: Detection Architecture}
+    We utilize the \textbf{YOLOv11} small architecture fine-tuned on specialized pediatric data.
     \begin{itemize}
-        \item \textbf{Model:} YOLOv8-seg.
-        \item \textbf{Refinement (Booster):} AdaBoost-Haar Cascade classifier.
-        \item \textbf{Function:} YOLOv8-seg detects human segments, while the \textbf{Ada-Haar Booster} validates pediatric head signatures within overlapping regions.
+        \item \textbf{Object Detection:} Rapid extraction of human bounding box coordinates.
+        \item \textbf{Geometric Baseline:} Establishing the dimensionless Head-to-Body ratio ($R$).
     \end{itemize}
+    \begin{equation}
+        R = \frac{H_{total}}{H_{head}}
+    \end{equation}
 \end{frame}
 
-\begin{frame}{Centroid Tracking (DeepSORT)}
+\begin{frame}{Methodology II: Allometric Post-Processing}
+    To solve the ``Invisible Child'' dyad, we evaluate spatial invariants within detected bounding boxes:
     \begin{itemize}
-        \item \textbf{Mechanism:} Calculates Euclidean distance between centroids.
-        \item \textbf{Kalman Filter:} Predicts future positions to maintain ID persistence during occlusions.
+        \item \textbf{Vertical Displacement:} $y_{h2} < y_{h1}$ (Infers a child carried on the back).
+        \item \textbf{Area Proportion:} $A_{h2} < A_{h1}$ (Confirms the secondary entity as pediatric).
     \end{itemize}
+    \centering
+    \includegraphics[width=6cm]{../research_papers/extracted_images/fig-010.jpg}
 \end{frame}
 
-\begin{frame}{Allometric Classification (The R Ratio)}
-    $$ R = \frac{H_{total}}{H_{head}} $$
-    \begin{block}{Classification Thresholds}
-        \begin{itemize}
-            \item $R \in [4.0, 6.0] \to$ \textbf{Infant}
-            \item $R \in [7.0, 8.0] \to$ \textbf{Adult}
-        \end{itemize}
-    \end{block}
+\begin{frame}{Methodology III: Dataset & Verification}
+    The framework is calibrated using the \textbf{Child Detection Dataset (CDD)} \parencite{diop2025}.
+    \centering
+    \includegraphics[width=8cm]{../research_papers/extracted_images/fig-008.jpg}
 \end{frame}

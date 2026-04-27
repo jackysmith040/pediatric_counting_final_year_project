@@ -3,22 +3,19 @@
 ## 4.1 System Architecture
 The proposed system follows a modular "Pipeline" architecture:
 1.  **Ingestion:** Real-time stream from a $640 \times 480$ (Low-Res) clinical camera.
-2.  **Detection & Segmentation:** YOLOv8-seg identifies "Person" masks.
-3.  **Refinement (The Booster):** AdaBoost-Haar scans person masks to confirm the presence of one or more "Pediatric Head" signatures.
-4.  **Math Layer:** Calculation of the $R$ ratio for each confirmed head.
-5.  **Tracking:** DeepSORT assigns and maintains IDs ($ID_1, ID_2, \dots$).
+2.  **Detection & Segmentation:** YOLOv8-seg identifies "Person" masks with pixel-level precision.
+3.  **Refinement (The Booster):** AdaBoost-Haar Cascade classifier validates pediatric head signatures (Viola & Jones, 2001).
+4.  **Math Layer:** Calculation of the scale-invariant $R$ ratio for each confirmed head.
+5.  **Tracking:** DeepSORT assigns and maintains IDs ($ID_1, ID_2, \dots$) using appearance features and allometric signatures.
 
-## 4.2 Handling the "Invisible Child" (Algorithm 1)
-When two heads are detected within a single body mask:
-- **Step A:** Extract vertical centroids $C_{head1}$ and $C_{head2}$.
-- **Step B:** Calculate Euclidean distance $d(C_1, C_2)$.
-- **Step C:** If $d < \tau$ and $R_{child} < 6.0$, increment the **Pediatric Census Counter**.
+## 4.2 Handling the "Invisible Child" (Spatial Inference)
+To solve the occlusion problem, the proposed algorithm independently isolates all human Heads ($H$) and Bodies ($B$). When a single body geometry bounds two distinct heads ($h_1, h_2 \in H$), the system evaluates two spatial parameters:
+1. **Vertical Displacement:** $y_{h2} < y_{h1}$ (The secondary head is physically lower).
+2. **Area Proportion:** $A_{h2} < A_{h1}$ (The secondary head's geometric area is strictly smaller).
 
-## 4.3 Data Augmentation for Ghana Context
-To ensure robustness in local environments, we apply **Domain Randomization**:
-- **Brightness Shifting:** Simulating variable lighting in rural clinics.
-- **Occlusion Simulation:** Artificially overlaying "cloth" textures to mimic children being wrapped in *ntoma*.
-- **Angle Variance:** Simulating non-ideal camera mounting positions.
+If both conditions hold true, the algorithm overrides standard suppression limits, correctly infers a carried child, and updates the pediatric matrix by $+1$.
 
-## 4.4 Hardware Constraints
-The system is designed to run on low-power edge devices (e.g., NVIDIA Jetson Nano) to ensure it can be deployed in resource-limited Ghanaian hospitals without the need for expensive server infrastructure.
+## 4.3 Geometric Tracking
+In every video frame $t$, the system extracts the bounding box centroid $C_t = (x_t, y_t)$. The algorithm links the child across frames by minimizing the Euclidean distance $d$:
+$$ d = \sqrt{(x_{t+1} - x_t)^2 + (y_{t+1} - y_t)^2} $$
+Through memory reassignment, if a child leaves the frame, the system temporarily caches their exact boundary coordinates to restore their ID (Ralhan et al., 2023).
