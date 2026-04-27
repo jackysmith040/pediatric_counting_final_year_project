@@ -1,0 +1,21 @@
+\chapter{Methodology}
+
+\section{System Architecture}
+The proposed system follows a modular pipeline:
+\begin{enumerate}
+    \item \textbf{Ingestion:} Low-res $640 \times 480$ clinical feed.
+    \item \textbf{Detection \& Segmentation:} YOLOv11-seg identifies person masks.
+    \item \textbf{Validation (Ada-Haar):} A Haar Cascade classifier validates pediatric head signatures to ensure high confidence.
+    \item \textbf{Classification (Allometry):} Calculation of the $R$ ratio for each candidate.
+    \item \textbf{Tracking (DeepSORT):} ID maintenance using Kalman Filters.
+\end{enumerate}
+
+\section{Handling Spatial Occlusion}
+When a single body bounds two distinct heads ($h_1, h_2$), the system evaluates:
+\begin{itemize}
+    \item Vertical Displacement: $y_{h2} < y_{h1}$.
+    \item Area Proportion: $A_{h2} < A_{h1}$.
+\end{itemize}
+
+\section{Edge Optimization}
+We utilize Region of Interest (RoI) pooling to prioritize pediatric candidates, maintaining 30+ FPS on edge hardware (Liu et al., 2020).

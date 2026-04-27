@@ -1,33 +1,38 @@
 \section{Methodology}
 
-\begin{frame}{Proposed Pipeline}
-    The proposed system follows a 4-stage pipeline:
-    \begin{center}
-        \textbf{Detection $\to$ Segmentation $\to$ Tracking $\to$ Classification}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Object Detection \& Segmentation}
+\begin{frame}{Methodology I: Implementation Stack}
+    We utilize a modular pipeline optimized for clinical edge deployment:
     \begin{itemize}
-        \item \textbf{Model:} YOLOv8-seg.
-        \item \textbf{Refinement (Booster):} AdaBoost-Haar Cascade classifier.
-        \item \textbf{Function:} YOLOv8-seg detects human segments, while the \textbf{Ada-Haar Booster} validates pediatric head signatures within overlapping regions.
+        \item \textbf{Detection:} \textbf{YOLOv11-seg} for pixel-level precision masks.
+        \item \textbf{Validation:} \textbf{Ada-Haar Booster} to verify pediatric head signatures.
+        \item \textbf{Tracking:} \textbf{DeepSORT} for ID persistence across occlusions.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Centroid Tracking (DeepSORT)}
-    \begin{itemize}
-        \item \textbf{Mechanism:} Calculates Euclidean distance between centroids.
-        \item \textbf{Kalman Filter:} Predicts future positions to maintain ID persistence during occlusions.
-    \end{itemize}
+\begin{frame}{Methodology II: Allometric \& Spatial Modeling}
+    We model the pediatric census using biological and geometric invariants:
+    \begin{block}{Allometric Ratio ($R$)}
+        \begin{equation}
+            R = \frac{H_{total}}{H_{head}} \in [4.0, 6.0] \implies \text{Pediatric}
+        \end{equation}
+    \end{block}
+    \begin{block}{Spatial Occlusion Logic}
+        \begin{equation}
+            \text{IF } y_{h2} < y_{h1} \text{ AND } A_{h2} < A_{h1} \implies \text{Count} + 1
+        \end{equation}
+    \end{block}
 \end{frame}
 
-\begin{frame}{Allometric Classification (The R Ratio)}
-    $$ R = \frac{H_{total}}{H_{head}} $$
-    \begin{block}{Classification Thresholds}
-        \begin{itemize}
-            \item $R \in [4.0, 6.0] \to$ \textbf{Infant}
-            \item $R \in [7.0, 8.0] \to$ \textbf{Adult}
-        \end{itemize}
+\begin{frame}{Methodology III: Kalman Filter Modeling}
+    To handle temporal occlusion, we utilize a linear state prediction-correction loop:
+    \begin{block}{1. Prediction (Kinematics)}
+        \begin{equation}
+            \hat{x}_k^- = F\hat{x}_{k-1} + Bu_k \quad ; \quad P_k^- = FP_{k-1}F^T + Q
+        \end{equation}
+    \end{block}
+    \begin{block}{2. Correction (Update)}
+        \begin{equation}
+            \hat{x}_k = \hat{x}_k^- + K_k(z_k - H\hat{x}_k^-)
+        \end{equation}
     \end{block}
 \end{frame}

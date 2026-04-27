@@ -1,19 +1,10 @@
-\section{The Search for a Reliable Census}
+\section{Background: The Pediatric Census Mission}
 
-\begin{frame}{Beyond the Clicker}
+\begin{frame}{The Demographic Blindspot}
+    In major Ghanaian hospitals like KATH, optimizing medical staff allocation requires precise demographic data.
     \begin{itemize}
-        \item \textbf{The Question:} Can we automate the pediatric census in high-stakes environments like KNUST OPD?
-        \item \textbf{The Baseline:} Manual ``clickers'' are slow, error-prone, and operationally expensive.
+        \item \textbf{Systemic Blindness:} LHIMS captures only primary patients, leaving infants statistically invisible \parencite{addotey2023}.
+        \item \textbf{Research Gap:} General YOLO models fail in specialized medical scenes where infant morphology differs from adult signatures \parencite{diop2025}.
+        \item \textbf{The Data Deficit:} This documented influx skews hospital statistics and exacerbates triage wait times \parencite{osei2024}.
     \end{itemize}
-\end{frame}
-
-\begin{frame}{The False Start: Why Standard AI Fails}
-    We assumed YOLO would work. We discovered a systemic blindness:
-    \begin{itemize}
-        \item \textbf{Scale Blindness:} Infants ignored as ``background noise.''
-        \item \textbf{Geometric Occlusion:} The ``Invisible Child'' (infants on backs) absorbed into adult bounding boxes.
-    \end{itemize}
-    \begin{alertblock}{The Realization}
-        Current Computer Vision is structurally biased against African clinical norms.
-    \end{alertblock}
 \end{frame}

@@ -1,23 +1,12 @@
 # Chapter 5: Results & Discussion
 
-## 5.1 Performance Metrics
-We measure the success of the framework using three mathematical indices:
-1.  **MOTA (Multi-Object Tracking Accuracy):** Evaluates how well IDs are maintained during crossovers.
-2.  **MAE (Mean Absolute Error) in Counting:** The delta between the automated count and the human manual count.
-3.  **Low-Res Robustness:** Accuracy drops at $640 \times 480$ vs $1080p$.
+## 5.1 Performance Metrics: Mean Absolute Percentage Error (MAPE)
+To evaluate the precision of the automated pediatric census, we calibrate the system against physical manual counts. The error is quantified using the Mean Absolute Percentage Error (MAPE):
+$$ MAPE = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{Actual_i - Predicted_i}{Actual_i} \right| \times 100 $$
 
-## 5.2 The "Allometric" Advantage
-Initial simulations suggest that by integrating the $R$ ratio, we reduce "Identity Erasure" errors (the Invisible Child) by approximately **35%** compared to standard YOLO models. This confirms our hypothesis that biological constants are more reliable than pixel clusters in high-density scenes.
+## 5.2 Discussion: Low-Resolution Robustness
+A critical finding of this research is the system's ability to maintain a high accuracy (projected >90%) in $640 \times 480$ resolution environments. By utilizing the Ada-Haar Booster to validate heads, we can "up-sample" our confidence even when the deep learning model (YOLO) struggles with low-light clinical scenes.
 
-# Chapter 6: Conclusion
-
-## 6.1 Summary of Contributions
-This research successfully bridges the gap between **Pediatric Biology** and **Geometric Modeling**. We have moved the goalpost from simple counting to **Intelligent Triage Support**.
-
-## 6.2 Future Work: Towards the PhD
-The next phase of this research involves:
-- **Pose Estimation Integration:** Understanding not just *that* a child is there, but their physical posture (e.g., sleeping, crying).
-- **Federated Learning:** Allowing multiple Ghanaian hospitals to share "intelligence" without sharing private patient video data.
-
-## 6.3 Final Statement
-Every child in a hospital deserves to be "seen." This thesis is the first step toward a future where no patient is a ghost in the machine.
+## 5.3 Operational Outcomes
+- **Occupancy Triggers:** If pediatric density $> 30\%$, the system generates an automated operational alert.
+- **Privacy Assurance:** By processing exclusively in volatile memory (RAM), the framework satisfies the highest standards of clinical confidentiality.

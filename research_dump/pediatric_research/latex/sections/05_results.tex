@@ -1,16 +1,16 @@
-\section{Expected Results}
+\section{Analysis and Expected Results}
 
-\begin{frame}{Metrics for Success}
-    \begin{itemize}
-        \item \textbf{MOTA (Multi-Object Tracking Accuracy):} Measuring ID persistence.
-        \item \textbf{Low-Res Robustness:} Targeting 90\% accuracy on standard $640 \times 480$ CCTV feeds.
-        \item \textbf{Counting Error (MAE):} Reducing the manual-vs-automated delta by 35\%.
-    \end{itemize}
+\begin{frame}{Precision Calibration}
+    The system's precision is evaluated using the Mean Absolute Percentage Error (MAPE):
+    \begin{equation}
+        MAPE = \frac{1}{n} \sum_{i=1}^{n} \left| \frac{Actual_i - Predicted_i}{Actual_i} \right| \times 100
+    \end{equation}
 \end{frame}
 
-\begin{frame}{Projected Impact}
+\begin{frame}{Expected Operational Outcomes}
     \begin{itemize}
-        \item \textbf{Triage Optimization:} Automated priority alerts for high pediatric densities.
-        \item \textbf{Resource Empowerment:} Freeing healthcare staff from manual census duties.
+        \item \textbf{High-Precision Classification:} Capture over 90\% of pediatric visitors, including those occluded by caregivers.
+        \item \textbf{Operational Trigger:} If pediatric density exceeds a threshold (e.g., 30\% occupancy), staff are alerted to open triage rooms.
+        \item \textbf{Privacy Guarantee:} Processing occurs entirely in volatile memory; strictly numerical output.
     \end{itemize}
 \end{frame}

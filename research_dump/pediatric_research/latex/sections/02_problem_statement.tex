@@ -1,12 +1,10 @@
 \section{Problem Statement}
 
-\begin{frame}{The Failure of Standard Geometry}
-    Current Computer Vision (YOLO/SSD) is trained on Western commercial datasets. 
+\begin{frame}{The Failure of Standard Surveillance}
+    Currently, hospitals rely heavily on manual tallying, which is highly susceptible to human error and lacks the real-time statistical reliability needed for dynamic operations.
     \begin{itemize}
-        \item \textbf{Identity Erasure:} High-density overlapping causes individual bounding boxes to merge.
-        \item \textbf{The Invisible Child:} Infants on backs are mathematically absorbed into adult segments.
+        \item \textbf{Geometric Flaw:} Standard surveillance algorithms interpret overlapping mother-child geometries as a single adult entity \parencite{ouyang2015}.
+        \item \textbf{NMS Limits:} Standard Non-Maximum Suppression (NMS) actively merges these overlapping shapes, discarding the carried child as visual noise.
+        \item \textbf{Privacy Concerns:} Traditional surveillance often stores video on centralized servers, violating strict medical privacy standards.
     \end{itemize}
-    \begin{block}{The Research Question}
-        How do we move from simple ``Box Detection'' to a \textbf{Biological Signature} that works in low-resolution clinical environments?
-    \end{block}
 \end{frame}

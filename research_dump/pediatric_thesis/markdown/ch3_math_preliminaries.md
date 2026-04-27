@@ -1,7 +1,7 @@
 # Chapter 3: Mathematical Preliminaries
 
 ## 3.1 Object Detection & Instance Segmentation
-We utilize YOLOv8-seg, where the detection process is modeled as an optimization problem. Given an image $I$, the model predicts a set of masks $M = \{m_1, m_2, \dots, m_k\}$ and class probabilities $P$.
+We utilize YOLOv8-seg, where the detection process is modeled as an optimization problem. Given an image $I$, the model predicts a set of masks $M = \{m_1, m_2, \dots, m_k\}$ and class probabilities $P$. To ensure feasibility on edge hardware, we consider lightweight architectures such as **ShuffleNetV2** (Liu et al., 2020), which utilize channel splitting to reduce computational FLOPs without sacrificing feature depth.
 
 ## 3.2 Allometric Scaling: The Biological Constant
 The Allometric Ratio $R$ is defined as:
