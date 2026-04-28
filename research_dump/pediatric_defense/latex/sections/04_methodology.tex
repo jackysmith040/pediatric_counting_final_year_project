@@ -1,5 +1,5 @@
 % 5. Methodology I
-\begin{frame}{Methodology I: Allometry \& Spatial Invariants}
+\begin{frame}{Methodology I: Bypassing the Occlusion Limit}
     \begin{columns}
         \begin{column}{0.4\textwidth}
             \textbf{1. Biological Anchor ($R$):}
@@ -8,9 +8,9 @@
             \end{equation*}
             
             \vspace{0.8cm}
-            \textbf{2. Spatial Override:}
+            \textbf{2. Spatial Override for Counting:}
             \begin{equation*}
-                \text{IF } y_{h2} < y_{h1} \text{ AND } A_{h2} < A_{h1} \implies \text{Child}
+                \text{IF } y_{h2} < y_{h1} \text{ AND } A_{h2} < A_{h1} \implies \text{Count} + 1
             \end{equation*}
         \end{column}
         \begin{column}{0.6\textwidth}
@@ -21,13 +21,13 @@
 \end{frame}
 
 % 6. Methodology II
-\begin{frame}{Methodology II: Tracking the Biological Entity}
+\begin{frame}{Methodology II: Tracking for Accurate Counts}
     \begin{columns}
         \begin{column}{0.45\textwidth}
-            \textbf{Neuro-Symbolic Pipeline:}
+            \textbf{Preventing Double-Counts:}
             \begin{itemize}
-                \item YOLOv11 for pixel precision.
-                \item \textbf{ID Persistence:} Kalman Filter Prediction-Correction Loop.
+                \item YOLOv11 detects; tracking ensures an accurate cumulative count.
+                \item Kalman Filter kinematics maintain persistent IDs.
             \end{itemize}
             
             \vspace{0.5cm}
