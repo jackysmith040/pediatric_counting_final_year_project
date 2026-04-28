@@ -1,0 +1,36 @@
+% 5 & 6. Methodology
+\begin{frame}{Methodology I: The Biological Anchor}
+    Standard AI guesses. We use biological constants.
+    \begin{block}{Allometric Scaling ($R$)}
+        The human head-to-body ratio is a physical invariant.
+        \begin{equation*}
+            R = \frac{H_{total}}{H_{head}}
+        \end{equation*}
+        \begin{itemize}
+            \item \textbf{Adult:} $R \approx 7.5 - 8.0$
+            \item \textbf{Infant:} $R \approx 4.0 - 6.0$
+        \end{itemize}
+    \end{block}
+    By calculating $R$ for every detected entity, we biologically verify age without facial recognition.
+\end{frame}
+
+\begin{frame}{Methodology II: The Neuro-Symbolic Engine}
+    How do we separate the child from the mother's back?
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \textbf{Deep Learning (Neuro):} YOLOv11 extracts pixel-level bounding boxes.
+                \item \textbf{Logic (Symbolic):} We apply spatial invariant logic to the boxes:
+                \begin{equation*}
+                    \text{IF } y_{h2} < y_{h1} \text{ AND } A_{h2} < A_{h1} \implies \text{Child}
+                \end{equation*}
+                \item \textbf{Tracking:} Kalman Filters predict temporal movement, maintaining IDs across occlusions.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{block}{The Result}
+                A mathematical override of NMS limits. Two heads in one box = Two people.
+            \end{block}
+        \end{column}
+    \end{columns}
+\end{frame}

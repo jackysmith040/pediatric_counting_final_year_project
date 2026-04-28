@@ -1,0 +1,54 @@
+% 9. Timeline
+\begin{frame}{Project Timeline}
+    \begin{figure}[H]
+        \centering
+        \resizebox{\textwidth}{!}{
+        \begin{ganttchart}[
+            vgrid,
+            hgrid,
+            x unit=2cm,
+            y unit title=0.6cm,
+            y unit chart=0.6cm,
+            title label font=\bfseries\footnotesize,
+            bar label font=\footnotesize,
+            group label font=\bfseries\footnotesize,
+            bar/.style={fill=knustgreen},
+            bar incomplete/.append style={fill=knustgold},
+            group/.append style={fill=black},
+            progress label text={},
+            time slot format=isodate
+        ]{1}{6}
+            % Timeline Header
+            \gantttitle{Project Timeline (Months)}{6} \\
+            \gantttitlelist{1,...,6}{1} \\
+    
+            % --- Phase 1 ---
+            \ganttgroup{Phase 1: Background \& Review}{1}{2} \\
+            \ganttbar{OPD Data Scarcity Research}{1}{1} \\
+            \ganttbar{Geometric Failure Analysis}{1}{2} \\
+    
+            % --- Phase 2 ---
+            \ganttgroup{Phase 2: Methodology (Current)}{3}{3} \\
+            \ganttbar{YOLOv11 Fine-Tuning}{3}{3} \\
+            \ganttbar{Allometric Model Integration}{3}{3} \\
+    
+            % --- Phase 3 ---
+            \ganttgroup{Phase 3: System Integration}{4}{4} \\
+            \ganttbar{Edge Computing Deployment}{4}{4} \\
+            \ganttbar{Kalman Filter Tracking}{4}{4} \\
+    
+            % --- Phase 4 ---
+            \ganttgroup{Phase 4: Validation \& Testing}{5}{5} \\
+            \ganttbar{CDD Dataset Testing}{5}{5} \\
+            \ganttbar{MAPE Calibration}{5}{5} \\
+    
+            % --- Phase 5 ---
+            \ganttgroup{Phase 5: Finalization}{6}{6} \\
+            \ganttbar{Thesis Compilation}{6}{6}
+            
+            % Vertical line to show current progress
+            \ganttvrule[vrule/.style={red, thick, dashed}]{Current Stage}{3}
+        \end{ganttchart}
+        }
+    \end{figure}
+\end{frame}

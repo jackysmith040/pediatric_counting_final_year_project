@@ -1,0 +1,41 @@
+% !TEX program = xelatex
+\documentclass[11pt, aspectratio=169]{beamer}
+
+\input{preamble.tex}
+
+% Additional packages for Timeline
+\usepackage{pgfgantt}
+
+\title[Pediatric Counting Defense]{Making the Invisible Child Visible}
+\subtitle{Automated Pediatric Census via Allometric Scaling \& Neuro-Symbolic Tracking}
+\author[Peter \& Fafali]{Peter Amoah Mensah (3457122) \and Fafali Dorkunor (3455022)}
+\institute[KNUST]{
+    Department of Mathematics \\
+    Kwame Nkrumah University of Science and Technology
+}
+\date{April 2026}
+
+\begin{document}
+
+% 1. Title Page
+\begin{frame}
+    \centering
+    \includegraphics[width=2cm]{images/KNUSTLogo.png} \\
+    \vspace{0.2cm}
+    \titlepage
+\end{frame}
+
+\input{sections/01_background.tex}
+\input{sections/02_problem.tex}
+\input{sections/03_objectives.tex}
+\input{sections/04_methodology.tex}
+\input{sections/05_justification.tex}
+\input{sections/06_results.tex}
+\input{sections/07_timeline.tex}
+
+% 10. References
+\begin{frame}{Selected References}
+    \printbibliography
+\end{frame}
+
+\end{document}
