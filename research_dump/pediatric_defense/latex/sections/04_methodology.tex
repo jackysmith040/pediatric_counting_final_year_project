@@ -1,36 +1,52 @@
-% 5 & 6. Methodology
-\begin{frame}{Methodology I: The Biological Anchor}
-    Standard AI guesses. We use biological constants.
-    \begin{block}{Allometric Scaling ($R$)}
-        The human head-to-body ratio is a physical invariant.
-        \begin{equation*}
-            R = \frac{H_{total}}{H_{head}}
-        \end{equation*}
-        \begin{itemize}
-            \item \textbf{Adult:} $R \approx 7.5 - 8.0$
-            \item \textbf{Infant:} $R \approx 4.0 - 6.0$
-        \end{itemize}
-    \end{block}
-    By calculating $R$ for every detected entity, we biologically verify age without facial recognition.
+% 5. Methodology I
+\begin{frame}{Methodology I: Allometry \& Spatial Invariants}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{1. Allometric Scaling ($R$):} \\
+            We bypass facial recognition by using physical growth constants.
+            \begin{equation*}
+                R = \frac{H_{total}}{H_{head}}
+            \end{equation*}
+            \textit{Infants ($R \approx 4.0 - 6.0$) vs Adults ($R \approx 7.5 - 8.0$)} \\
+            \vspace{0.3cm}
+            \textbf{2. Spatial Occlusion Logic:} \\
+            To override NMS limits, we apply conditional logic to detected bounding boxes ($h_1, h_2$):
+            \begin{equation*}
+                \text{IF } y_{h2} < y_{h1} \text{ AND } A_{h2} < A_{h1} \implies \text{Child}
+            \end{equation*}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \centering
+            \includegraphics[width=0.9\textwidth]{images/fig-010.jpg} \\
+            \vspace{0.2cm}
+            \scriptsize{Comparative analysis: Standard NMS (left) vs. Specialized Spatial Fine-tuning (right).}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-\begin{frame}{Methodology II: The Neuro-Symbolic Engine}
-    How do we separate the child from the mother's back?
+% 6. Methodology II
+\begin{frame}{Methodology II: Tracking the Biological Entity}
     \begin{columns}
         \begin{column}{0.6\textwidth}
+            \textbf{The Neuro-Symbolic Pipeline:}
             \begin{itemize}
-                \item \textbf{Deep Learning (Neuro):} YOLOv11 extracts pixel-level bounding boxes.
-                \item \textbf{Logic (Symbolic):} We apply spatial invariant logic to the boxes:
-                \begin{equation*}
-                    \text{IF } y_{h2} < y_{h1} \text{ AND } A_{h2} < A_{h1} \implies \text{Child}
-                \end{equation*}
-                \item \textbf{Tracking:} Kalman Filters predict temporal movement, maintaining IDs across occlusions.
+                \item \textbf{Detection:} YOLOv11 extracts pixel-level precision masks.
+                \item \textbf{Persistence:} How do we avoid double-counting if someone is occluded?
             \end{itemize}
+            \textbf{Kalman Filter Prediction-Correction Loop:}
+            \begin{block}{Prediction (Kinematics)}
+                $\hat{x}_k^- = F\hat{x}_{k-1} + Bu_k$ \quad ; \quad $P_k^- = FP_{k-1}F^T + Q$
+            \end{block}
+            \begin{block}{Correction (Update)}
+                $\hat{x}_k = \hat{x}_k^- + K_k(z_k - H\hat{x}_k^-)$
+            \end{block}
+            This mathematical engine ensures IDs remain persistent across complex spatial overlaps.
         \end{column}
         \begin{column}{0.4\textwidth}
-            \begin{block}{The Result}
-                A mathematical override of NMS limits. Two heads in one box = Two people.
-            \end{block}
+            \centering
+            \includegraphics[width=0.9\textwidth]{images/fig-008.jpg} \\
+            \vspace{0.2cm}
+            \scriptsize{Training baseline: Diverse postures from the Child Detection Dataset.}
         \end{column}
     \end{columns}
 \end{frame}
