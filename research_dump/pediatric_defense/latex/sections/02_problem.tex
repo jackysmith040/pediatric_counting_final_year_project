@@ -1,15 +1,22 @@
 % 3. Problem Statement
-\begin{frame}{Problem Statement: Counting in the Chaos}
+\begin{frame}{Problem Statement: The Two Hurdles}
     \begin{columns}
-        \begin{column}{0.35\textwidth}
-            \textbf{The Algorithmic Bottleneck:}
+        \begin{column}{0.4\textwidth}
+            \textbf{1. Operational Failure:}
             \begin{itemize}
-                \item Counting pediatric patients requires distinguishing children from adults in highly dense crowds.
-                \item Standard AI fails in extreme density.
-                \item Whether a child is walking close to an adult or carried in an \textit{ntoma}, standard systems merge them into a single adult count.
+                \item Manual tallying is error-prone.
+                \item Pulls nurses away from patient care.
+                \item Result: Poor resource allocation.
+            \end{itemize}
+            
+            \vspace{0.5cm}
+            \textbf{2. Technical Failure:}
+            \begin{itemize}
+                \item Standard AI fails in high-density OPDs.
+                \item Whether walking close or carried, standard AI merges them into a single adult count.
             \end{itemize}
         \end{column}
-        \begin{column}{0.65\textwidth}
+        \begin{column}{0.6\textwidth}
             \centering
             \includegraphics[width=0.48\textwidth,height=0.8\textheight,keepaspectratio]{images/invisible_child.png} \hfill
             \includegraphics[width=0.48\textwidth,height=0.8\textheight,keepaspectratio]{images/6017147747913370946.jpg}
