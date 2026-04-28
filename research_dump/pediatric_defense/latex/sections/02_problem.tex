@@ -1,18 +1,17 @@
 % 3. Problem Statement
 \begin{frame}{Problem Statement: The Invisible Child}
     \begin{columns}
-        \begin{column}{0.55\textwidth}
+        \begin{column}{0.35\textwidth}
             \textbf{The Algorithmic Blind Spot:}
             \begin{itemize}
-                \item To automate counting, standard AI (like basic YOLO) relies on \textbf{Non-Maximum Suppression (NMS)}.
-                \item In Ghana, mothers frequently carry infants on their backs using traditional \textit{ntoma}.
-                \item \textbf{Geometric Failure:} NMS merges overlapping objects. The mother and child's bounding boxes fuse into one.
-                \item The algorithm actively deletes the child, considering them "visual noise." Statistically, the child becomes invisible.
+                \item Standard AI relies on \textbf{Non-Maximum Suppression (NMS)}.
+                \item \textbf{Geometric Failure:} NMS merges overlapping bounding boxes.
+                \item The infant carried in an \textit{ntoma} is statistically erased as "visual noise."
             \end{itemize}
         \end{column}
-        \begin{column}{0.45\textwidth}
+        \begin{column}{0.65\textwidth}
             \centering
-            \includegraphics[width=\textwidth]{images/invisible_child.png}
+            \includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{images/invisible_child.png}
         \end{column}
     \end{columns}
 \end{frame}
